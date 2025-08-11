@@ -15,8 +15,8 @@
 }
 
 [[nodiscard]] std::optional<std::string> get_username() {
-    if (auto val = getenv_str("USER"))    return val;
-    if (auto val = getenv_str("LOGNAME")) return val;
+    if (std::optional<std::string> val = getenv_str("USER"))    return val;
+    if (std::optional<std::string> val = getenv_str("LOGNAME")) return val;
 
     if (const passwd* pw = getpwuid(getuid());
         pw && pw->pw_name && *pw->pw_name) {
@@ -26,7 +26,7 @@
 }
 
 [[nodiscard]] std::optional<std::string> get_home_directory() {
-    if (auto val = getenv_str("HOME")) return val;
+    if (std::optional<std::string> val = getenv_str("HOME")) return val;
 
     if (const passwd* pw = getpwuid(getuid());
         pw && pw->pw_dir && *pw->pw_dir) {
